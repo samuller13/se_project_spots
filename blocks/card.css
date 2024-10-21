@@ -8,6 +8,7 @@
   height: 413px;
   border-radius: 8px;
   display: block;
+  object-fit: cover;
 }
 
 .card__content {
