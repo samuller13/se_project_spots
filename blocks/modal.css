@@ -5,20 +5,17 @@
   bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: none;
   padding: 0 16px;
   visibility: hidden;
 }
 
-.modal__opened {
+.modal_opened {
   visibility: visible;
-}
-
-.modal__closed {
-  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal__container {
@@ -54,6 +51,7 @@
   font-size: 32px;
   font-weight: 500;
   line-height: 1;
+  color: rgba(33, 33, 33, 1);
 }
 
 .modal__label {
@@ -72,10 +70,10 @@
   border-radius: 8px;
   border: 1px solid rgba(33, 33, 33, 0.4);
   font-size: 20px;
-  color: rgba(33, 33, 33, 0.3);
+  color: rgba(33, 33, 33, 1);
   font-weight: 500;
   line-height: 1;
-  transition: 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .modal__input:focus {
@@ -83,6 +81,7 @@
 }
 
 .modal__input:hover {
+  opacity: 1;
   cursor: pointer;
   border: 1px solid rgba(33, 33, 33, 1);
 }
@@ -97,11 +96,11 @@
   border-style: none;
   background-color: rgba(33, 33, 33, 1);
   color: rgba(252, 245, 229, 1);
-  transition: 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .modal__submit-button:hover {
-  background-color: rgba(33, 33, 33, 0.8);
+  opacity: 0.8;
   cursor: pointer;
 }
 
@@ -122,6 +121,10 @@
   .modal__title {
     font-size: 20px;
     margin: 10px 0 34px;
+  }
+
+  .modal__input {
+    font-size: 16px;
   }
 
   .modal__label {
