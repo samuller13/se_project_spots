@@ -22,8 +22,7 @@
 
 .card__title {
   margin: 0;
-  height: 18px;
-  width: 288px;
+  height: 24px;
   font-weight: 500;
   font-size: 20px;
   line-height: 1.2;
@@ -36,6 +35,7 @@
 .card__like-button {
   background-image: url(../images/heart.svg);
   border: none;
+  background-repeat: no-repeat;
   padding: 0;
   margin: 0;
   width: 23px;
@@ -48,6 +48,15 @@
 .card__like-button:hover {
   opacity: 1;
   cursor: pointer;
+}
+
+.card__like-button_liked {
+  background-image: url(../images/redheart.svg);
+  opacity: 1;
+}
+
+.card__like-button_liked:hover {
+  background-image: url(../images/redheartlight.svg);
 }
 
 @media screen and (max-width: 627px) {
