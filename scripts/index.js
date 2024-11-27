@@ -23,6 +23,10 @@ const initialCards = [
     name: "Mountain house",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
+  {
+    name: "Golden Gate bridge",
+    link: "  https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+  },
 ];
 
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -43,6 +47,13 @@ const addCardForm = addCardModal.querySelector(".add-card__form");
 const cardModalCloseButton = addCardModal.querySelector(".modal__close-button");
 const addCardLinkInput = addCardModal.querySelector("#add-card-link-input");
 const addCardNameInput = addCardModal.querySelector("#add-card-name-input");
+
+const previewModal = document.querySelector("#preview-modal");
+const previewModalImageEl = previewModal.querySelector(".modal__image");
+const previewModalCaptionEl = previewModal.querySelector(".modal__caption");
+const previewModalCloseButton = previewModal.querySelector(
+  ".modal__close-button"
+);
 
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
@@ -65,7 +76,13 @@ function getCardElement(data) {
   cardDeleteButton.addEventListener("click", () => {
     cardElement.remove();
   });
-  // handler should remove the card from the DOM (sprint 4 DOM basics: remove elements from DOM)
+
+  cardImageEl.addEventListener("click", () => {
+    openModal(previewModal);
+    previewModalImageEl.src = data.link;
+    previewModalImageEl.alt = data.name;
+    previewModalCaptionEl.textContent = data.name;
+  });
 
   return cardElement;
 }
@@ -76,6 +93,11 @@ function openModal(modal) {
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+}
+
+function toggleModal() {
+  const modal = document.querySelector(".modal");
+  modal.classList.toggle("modal_opened");
 }
 
 function handleEditFormSubmit(evt) {
@@ -115,6 +137,10 @@ cardModalButton.addEventListener("click", () => {
 
 cardModalCloseButton.addEventListener("click", () => {
   closeModal(addCardModal);
+});
+
+previewModalCloseButton.addEventListener("click", () => {
+  closeModal(previewModal);
 });
 
 initialCards.forEach((item) => {
