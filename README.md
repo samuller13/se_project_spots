@@ -11,6 +11,7 @@ This is my third project in the TripleTen software engineer program. It represen
 - HTML
 - CSS
 - Responsive Design
+- JavaScript
 
 **Figma**
 
