@@ -37,6 +37,8 @@ This webpage is deployed to GitHub Pages
 
 [Deployment Link](https://samuller13.github.io/se_project_spots/)
 
+[Link to the Site](https://samuller13.github.io/se_project_spots/)
+
 **Video**
 
 [My "Spots" Project Overview](https://drive.google.com/file/d/1mooTK0480wEE9f7a-ADmcjDsq2D32XnI/view?usp=sharing)
