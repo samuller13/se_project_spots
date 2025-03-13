@@ -11,16 +11,12 @@
   <body>
     <div class="page">
       <header class="header">
-        <img
-          src="<%=require(./images/logo.svg)%>"
-          alt="spots logo"
-          class="header__logo"
-        />
+        <img id="header-logo" alt="spots logo" class="header__logo" />
       </header>
       <main class="content">
         <section class="profile page__section">
           <img
-            src="<%=require(./images/avatar.jpg)%>"
+            id="profile-avatar"
             alt="Bessie Coleman"
             class="profile__avitar"
           />
@@ -29,18 +25,15 @@
             <p class="profile__description">Civil Aviator</p>
             <button type="button" class="profile__edit-button">
               <img
-                src="<%=require(./images/pencil.svg)%>"
+                id="edit-icon"
                 alt="pencil icon"
                 class="profile__edit-icon"
               />Edit Profile
             </button>
           </div>
           <button type="button" class="profile__add-button">
-            <img
-              src="<%=require(./images/add-icon.svg)%>"
-              alt="add icon"
-              class="profile__add-icon"
-            />New Post
+            <img id="add-icon" alt="add icon" class="profile__add-icon" />New
+            Post
           </button>
         </section>
         <section class="cards page__section">

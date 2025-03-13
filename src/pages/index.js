@@ -1,3 +1,5 @@
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import "./index.css";
 import {
   enableValidation,
@@ -5,6 +7,36 @@ import {
   resetValidation,
   disableButton,
 } from "../scripts/validation.js";
+
+import logoSrc from "../images/logo.svg";
+import avatarSrc from "../images/avatar.jpg";
+import editIconSrc from "../images/pencil.svg";
+import addIconSrc from "../images/add-icon.svg";
+import Api from "../utils/Api.js";
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "04cc443a-c254-4d72-b68b-d6354f20ae65",
+    "Content-Type": "application/json",
+  },
+});
+
+api
+  .getAppInfo()
+  .then(([cards, userInfo]) => {
+    const { about, avatar, name, _id } = userInfo;
+    cards.forEach((item) => {
+      const cardElement = getCardElement(item);
+      cardsList.append(cardElement);
+    });
+  })
+  .catch(console.error);
+
+document.getElementById("header-logo").src = logoSrc;
+document.getElementById("profile-avatar").src = avatarSrc;
+document.getElementById("edit-icon").src = editIconSrc;
+document.getElementById("add-icon").src = addIconSrc;
 
 const initialCards = [
   {
@@ -90,9 +122,6 @@ function getCardElement(data) {
 
   cardImageEl.addEventListener("click", () => {
     openModal(previewModal);
-    previewModalImageEl.src = data.link;
-    previewModalImageEl.alt = data.name;
-    previewModalCaptionEl.textContent = data.name;
   });
 
   return cardElement;
@@ -112,13 +141,32 @@ function closeModal(modal) {
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = editModalNameInput.value;
-  profileDescription.textContent = editModalDescriptionInput.value;
-  closeModal(editModal);
+  api
+    .editUserInfo({
+      name: editModalNameInput.value,
+      about: editModalDescriptionInput.value,
+    })
+    .then((data) => {
+      profileName.textContent = data.name;
+      profileDescription.textContent = data.about;
+      closeModal(editModal);
+    })
+    .catch(console.error);
 }
 
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
+  api
+    .addCard({
+      name: addCardNameInput.value,
+      link: addCardLinkInput.value,
+    })
+    .then((data) => {
+      previewModalImageEl.src = data.link;
+      previewModalImageEl.alt = data.name;
+      previewModalCaptionEl.textContent = data.name;
+    });
+
   const inputValues = {
     name: addCardNameInput.value,
     link: addCardLinkInput.value,
@@ -160,11 +208,6 @@ addCardForm.addEventListener("submit", handleAddCardSubmit);
 
 cardModalButton.addEventListener("click", () => {
   openModal(addCardModal);
-});
-
-initialCards.forEach((item) => {
-  const cardElement = getCardElement(item);
-  cardsList.prepend(cardElement);
 });
 
 enableValidation(settings);
