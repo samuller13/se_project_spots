@@ -12,6 +12,7 @@ import logoSrc from "../images/logo.svg";
 import avatarSrc from "../images/avatar.jpg";
 import editIconSrc from "../images/pencil.svg";
 import addIconSrc from "../images/add-icon.svg";
+
 import Api from "../utils/Api.js";
 
 const api = new Api({
