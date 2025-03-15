@@ -202,7 +202,7 @@
   opacity: 1;
 }
 
-.modal__form {
+.modal__form-delete {
   display: flex;
   justify-content: center;
   gap: 20px;
