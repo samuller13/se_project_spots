@@ -27,6 +27,9 @@ api
   .getAppInfo()
   .then(([cards, userInfo]) => {
     const { about, avatar, name, _id } = userInfo;
+    profileAvatar.src = avatar;
+    profileName.textContent = name;
+    profileDescription.textContent = about;
     cards.forEach((item) => {
       const cardElement = getCardElement(item);
       cardsList.append(cardElement);
@@ -35,7 +38,6 @@ api
   .catch(console.error);
 
 document.getElementById("header-logo").src = logoSrc;
-document.getElementById("profile-avatar").src = avatarSrc;
 document.getElementById("edit-icon").src = editIconSrc;
 document.getElementById("add-icon").src = addIconSrc;
 document.getElementById("avatar-edit-icon").src = avatarEditIconSrc;
@@ -77,6 +79,7 @@ const avatarModalButton = document.querySelector(".profile__avatar-btn");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
+const profileAvatar = document.querySelector(".profile__avatar");
 const avatarModal = document.querySelector("#avatar-modal");
 const avatarForm = avatarModal.querySelector(".modal__form");
 const avatarSubmitButton = avatarModal.querySelector(".modal__submit-button");
@@ -150,6 +153,9 @@ function getCardElement(data) {
   );
 
   cardImageEl.addEventListener("click", () => {
+    previewModalImageEl.src = data.link;
+    previewModalImageEl.alt = data.name;
+    previewModalCaptionEl.textContent = data.name;
     openModal(previewModal);
   });
 
@@ -220,11 +226,14 @@ function handleAddCardSubmit(evt) {
 
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
+  console.log("Avatar URL being submitted:", avatarInput.value);
   setButtonText(avatarSubmitButton, true);
   api
     .editAvatarInfo(avatarInput.value)
     .then((data) => {
-      avatarModal.src = data.avatar;
+      console.log("Response from server:", data);
+      profileAvatar.src = data.avatar;
+      evt.target.reset();
       closeModal(avatarModal);
     })
     .catch(console.error)
