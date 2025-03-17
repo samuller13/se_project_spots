@@ -81,7 +81,7 @@ const profileDescription = document.querySelector(".profile__description");
 
 const profileAvatar = document.querySelector(".profile__avatar");
 const avatarModal = document.querySelector("#avatar-modal");
-const avatarForm = avatarModal.querySelector(".modal__form");
+const avatarForm = document.forms["edit-avatar-form"];
 const avatarSubmitButton = avatarModal.querySelector(".modal__submit-button");
 const avatarInput = avatarModal.querySelector("#profile-picture-input");
 
@@ -93,7 +93,7 @@ const editModalDescriptionInput = editModal.querySelector(
 );
 
 const addCardModal = document.querySelector("#add-card-modal");
-const addCardForm = addCardModal.querySelector(".modal__form");
+const addCardForm = document.forms["card-form"];
 const cardSubmitButton = addCardModal.querySelector(".modal__submit-button");
 const addCardLinkInput = addCardModal.querySelector("#add-card-link-input");
 const addCardNameInput = addCardModal.querySelector("#add-card-name-input");
@@ -104,7 +104,7 @@ const previewModalCaptionEl = previewModal.querySelector(".modal__caption");
 
 const closeButtons = document.querySelectorAll(".modal__close-button");
 const deleteModal = document.querySelector("#delete-modal");
-const deleteForm = deleteModal.querySelector(".modal__form");
+const deleteForm = document.forms["delete-form"];
 const deleteSubmitButton = deleteModal.querySelector(".modal__delete-button");
 const cancelButton = deleteModal.querySelector(".modal__cancel-button");
 
@@ -226,14 +226,13 @@ function handleAddCardSubmit(evt) {
 
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
-  console.log("Avatar URL being submitted:", avatarInput.value);
   setButtonText(avatarSubmitButton, true);
   api
     .editAvatarInfo(avatarInput.value)
     .then((data) => {
-      console.log("Response from server:", data);
       profileAvatar.src = data.avatar;
       evt.target.reset();
+      disableButton(avatarSubmitButton, settings);
       closeModal(avatarModal);
     })
     .catch(console.error)
